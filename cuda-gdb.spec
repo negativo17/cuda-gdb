@@ -7,7 +7,7 @@
 
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
-Version:        12.0.90
+Version:        12.0.140
 Release:        1%{?dist}
 Summary:        CUDA GDB
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
@@ -66,6 +66,9 @@ cp -f extras/Debugger/include/* %{buildroot}%{_includedir}/
 %{_libdir}/libcudacore.a
 
 %changelog
+* Sat Feb 25 2023 Simone Caronni <negativo17@gmail.com> - 1:12.0.140-1
+- Update to 12.0.140.
+
 * Tue Dec 13 2022 Simone Caronni <negativo17@gmail.com> - 1:12.0.90-1
 - Update to 12.0.90.
 
