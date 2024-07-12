@@ -3,7 +3,7 @@
 %global __strip /bin/true
 %global _missing_build_ids_terminate_build 0
 %global _build_id_links none
-%global major_package_version 12-0
+%global major_package_version 12-5
 
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
@@ -17,7 +17,7 @@ ExclusiveArch:  x86_64 aarch64
 Source0:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-x86_64/%{real_name}-linux-x86_64-%{version}-archive.tar.xz
 Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-sbsa/%{real_name}-linux-sbsa-%{version}-archive.tar.xz
 
-Requires(post): ldconfig
+Requires:       gdb
 Conflicts:      %{name}-%{major_package_version} < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
@@ -37,32 +37,27 @@ simulation and emulation environments.
 %endif
 
 %install
-mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_datadir}/%{name}
 mkdir -p %{buildroot}%{_includedir}
 mkdir -p %{buildroot}%{_libdir}
 
-cp -f bin/* %{buildroot}%{_bindir}/
-cp -fr share/gdb/* %{buildroot}%{_datadir}/%{name}/
-cp -f extras/Debugger/lib64/* %{buildroot}%{_libdir}/
+install -p -m 0755 -D bin/cuda-gdb-minimal %{buildroot}%{_bindir}/cuda-gdb
+install -p -m 0755 -D bin/cuda-gdbserver %{buildroot}%{_bindir}/cuda-gdbserver
 cp -f extras/Debugger/include/* %{buildroot}%{_includedir}/
-
-%{?ldconfig_scriptlets}
 
 %files
 %license LICENSE
 %{_bindir}/cuda-gdb
 %{_bindir}/cuda-gdbserver
-%{_datadir}/%{name}
 %{_includedir}/cudacoredump.h
 %{_includedir}/cudadebugger.h
 %{_includedir}/cuda_stdint.h
 %{_includedir}/libcudacore.h
-%{_libdir}/libcudacore.a
 
 %changelog
 * Thu Jul 11 2024 Simone Caronni <negativo17@gmail.com> - 1:12.5.82-1
 - Update to 12.5.82.
+- Drop syscall components and just require gdb.
 
 * Tue Mar 12 2024 Simone Caronni <negativo17@gmail.com> - 1:12.4.99-1
 - Update to 12.4.99.
