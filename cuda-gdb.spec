@@ -56,7 +56,6 @@ cp -f extras/Debugger/include/* %{buildroot}%{_includedir}/
 %{_includedir}/cudacoredump.h
 %{_includedir}/cudadebugger.h
 %{_includedir}/cuda_stdint.h
-%{_includedir}/libcudacore.h
 
 %changelog
 * Thu Sep 19 2024 Simone Caronni <negativo17@gmail.com> - 1:12.6.68-1
