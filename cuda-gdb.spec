@@ -17,6 +17,7 @@ ExclusiveArch:  x86_64 aarch64
 Source0:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-x86_64/%{real_name}-linux-x86_64-%{version}-archive.tar.xz
 Source1:        https://developer.download.nvidia.com/compute/cuda/redist/%{real_name}/linux-sbsa/%{real_name}-linux-sbsa-%{version}-archive.tar.xz
 
+BuildRequires:  chrpath
 Requires:       gdb
 Conflicts:      %{name}-%{major_package_version} < %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -36,16 +37,14 @@ simulation and emulation environments.
 %setup -q -T -b 1 -n %{real_name}-linux-sbsa-%{version}-archive
 %endif
 
+chrpath -d bin/cuda-gdb-minimal
+
 %install
 mkdir -p %{buildroot}%{_datadir}/%{name}
 mkdir -p %{buildroot}%{_includedir}
 mkdir -p %{buildroot}%{_libdir}
 
-%ifarch x86_64
 install -p -m 0755 -D bin/cuda-gdb-minimal %{buildroot}%{_bindir}/cuda-gdb
-%else
-install -p -m 0755 -D bin/cuda-gdb %{buildroot}%{_bindir}/cuda-gdb
-%endif
 install -p -m 0755 -D bin/cuda-gdbserver %{buildroot}%{_bindir}/cuda-gdbserver
 cp -f extras/Debugger/include/* %{buildroot}%{_includedir}/
 
