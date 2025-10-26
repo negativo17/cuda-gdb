@@ -7,7 +7,7 @@
 
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
-Version:        13.0.39
+Version:        13.0.85
 Release:        1%{?dist}
 Summary:        CUDA GDB
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
@@ -58,6 +58,9 @@ cp -f extras/Debugger/include/* %{buildroot}%{_includedir}/
 %{_includedir}/cuda_stdint.h
 
 %changelog
+* Sun Oct 26 2025 Simone Caronni <negativo17@gmail.com> - 1:13.0.85-1
+- Update to 13.0.85.
+
 * Mon Aug 25 2025 Simone Caronni <negativo17@gmail.com> - 1:13.0.39-1
 - Update to 13.0.39.
 
